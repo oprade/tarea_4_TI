@@ -5,40 +5,26 @@
     <meta charset="utf-8">
     <title>Maps</title>
     <style>
-      /* Always set the map height explicitly to define the size of the div
-       * element that contains the map. */
+      /* define the size of the div element that contains the map. */
       #map {
         height: 100%;
       }
-      /* Optional: Makes the sample page fill the window. */
+      /* Makes the sample page fill the window. */
       html, body {
         height: 100%;
         margin: 0;
         padding: 0;
       }
     </style>
+    <script type="text/javascript" src="javascript.js"></script>
   </head>
   <body>
-    <div id="map"></div>
-    <script>
+ 
 
-      function initMap() {
-        var myLatLng = {lat: -25.363, lng: 131.044};
+    <div id="map"> 
 
-        var map = new google.maps.Map(document.getElementById('map'), {
-          zoom: 4,
-          center: myLatLng
-        });
-
-        var marker = new google.maps.Marker({
-          position: myLatLng,
-          map: map,
-          title: 'Maps of flights'
-        });
-      }
-    </script>
+    </div>
     <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA74ybIFcvCJIQ4j3G4spDgOG0jhKpEwrU&callback=initMap">
-    </script>
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA74ybIFcvCJIQ4j3G4spDgOG0jhKpEwrU&callback=initMap"></script>
   </body>
 </html>
