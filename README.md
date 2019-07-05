@@ -8,3 +8,5 @@ Working functionalities :
 What would need improvement / missing functionalities :
  - showing the real path of the planes and deleting all but the last position of a plane
  - add info windows
+
+See website : https://oprade.github.io/tarea_4_TI/
