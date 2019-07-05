@@ -1,71 +1,53 @@
 
 //create map
-var map
+var map;
+var dict_airports={};
 
 function initMap() {
-    var myLatLng = {lat: -25.363, lng: 131.044};
+    var myLatLng = {lat: -33.447487, lng: -70.673676};// Santiago de Chile
+
       
     map = new google.maps.Map(document.getElementById('map'), {
         zoom: 4,
         center: myLatLng
     });
-
-}
-     
-
-
-
-       
-
-
-
-/*
-//connection with the server
-const express = require('express');
-const app = express();
-const server = require('http').createServer(app);
-const io = require('socket.io')(server);
-
-app.use('/socket.io',
-  express.static(__dirname + 'node_modules/socket.io-client/dist/')
-)
-const socket = io('https://integracion-tarea-4.herokuapp.com', {
-  path: '/flights',
-  ForceNew = true
-});
+    
 
 
 
 
-function initMap() {
-  var myLatLng = {lat: -25.363, lng: 131.044};
-
-  var map = new google.maps.Map(document.getElementById('map'), {
-    zoom: 4,
-    center: myLatLng
-  });
-}
-
-
-
-
-
-//create airports
-
-//obtain airports from the server
-socket.emit("AIRPORTS"); //AIRPORTS is a dictionnary
-socket.on("AIRPORTS", airport);
-
-function airports(dict){ 
-    for(var key in dict) {
-        var value = dict[key];
-        var marker = new google.maps.Marker({
-            position : {lat: value["airport_position"][0],
-            lng: value["airport_position"][1]},
-            map: map,
-            title : value[name]
-        })
+function addPoint(description, latlng) {            
+    var marker = new google.maps.Marker({
+        position: new google.maps.LatLng(latlng.lat, latlng.lng),
+        map: map,
+        title: description
         
+    }); 
+    return marker   
+
+};
+
+
+//create the marker of an airport
+function new_Airports(data) {
+        marker_airport = addPoint(data["name"],{lat: data["airport_position"][0],
+        lng: data["airport_position"][1]});
+        return marker_airport
+}; 
+
+//connection with the server
+var socket = io.connect('wss://integracion-tarea-4.herokuapp.com', {"path": "/flights"});
+
+//obtain info form imports and create the markers
+socket.on('AIRPORTS', function(data){
+    var airports=Object.keys(data);
+    for (var key in airports){
+      var airport = data[airports[key]];
+      dict_airports[airport.airport_code]=airport;
+      new_Airports(airport);
     }
-}
-*/
+});   
+
+socket.emit('AIRPORTS',function(data){});
+
+};
