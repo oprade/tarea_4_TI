@@ -2,6 +2,8 @@
 //create map
 var map;
 var dict_airports={};
+//var new_airport ;
+//var infowindow;
 
 
 function initMap() {
@@ -9,12 +11,13 @@ function initMap() {
 
       
     map = new google.maps.Map(document.getElementById('map'), {
-        zoom: 4,
-        center: myLatLng
+        zoom: 5,
+        center: myLatLng,
+        mapTypeId: google.maps.MapTypeId.ROADMAP
     });
     
-
-
+    //infowindow = new google.maps.InfoWindow();
+    //var infowindow = new google.maps.InfoWindow();
 
 
     function addPoint(description, latlng, image) {            
@@ -51,14 +54,24 @@ function initMap() {
             dict_airports[airport.airport_code]=airport;
             var new_airport = new_Airports(airport);
 
-            /*//add pop up info window //do not work
+            //add pop up info window //do not work
             var contentString = 'test';
-            var infowindow = new google.maps.InfoWindow({
-                content: contentString
-            });
-            marker.addListener('click', function() {
-                infowindow.open(map, new_airport);
-            });*/
+            
+            
+            //new_airport.addListener('click', function() {
+            //    infowindow.open(map, new_airport);
+            //});
+            
+            //failed alternative version
+            //var infoWindow = new google.maps.InfoWindow({content:'test'});
+            //new_airport.addListener('mouseover', function(){infoWindow.open(map, new_airport)});
+            //new_airport.addListener('mouseout', function() {infoWindow.close()});
+
+            //other test
+            //google.maps.event.addListener(new_airport, "click", function() {
+              //  infowindow.setContent(contentString);
+                //infowindow.open(map, this);
+          //});
         }
     });   
 
@@ -104,7 +117,7 @@ function initMap() {
         return plane;
     };*/
 
-    //add planes on the map, but does not enable the live-update of positions
+    //add planes on the map, we can observe a deplacement through a succession of images
     socket.on('POSITION',function(data){
         //for (var key in data){ //I don't understand the format of position but it seems that loops are useless
             //var plane = data [key];
